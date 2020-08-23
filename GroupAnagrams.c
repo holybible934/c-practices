@@ -14,6 +14,12 @@ int cmpChar(const void* a, const void* b) {
     return *(const char*)a - *(const char*)b;
 }
 
+int cmpPair(const void* a, const void* b) {
+    const Pair* pa = (const Pair*)a;
+    const Pair* pb = (const Pair*)b;
+    return strcmp(pa->sorted, pb->sorted);
+}
+
 char *** groupAnagrams(char ** strs, int strsSize, int* returnSize, int** returnColumnSizes){
     Pair* pairArray = malloc(sizeof(Pair)*strsSize);
     for (int i = 0;i < strsSize; i++) {
@@ -23,4 +29,6 @@ char *** groupAnagrams(char ** strs, int strsSize, int* returnSize, int** return
         pairArray[i].orig = strs[i];
         pairArray[i].sorted = sorted_str;
     }
+
+    qsort(pairs, strsSize, sizeof(Pair), cmpPair);
 }
