@@ -31,4 +31,31 @@ char *** groupAnagrams(char ** strs, int strsSize, int* returnSize, int** return
     }
 
     qsort(pairs, strsSize, sizeof(Pair), cmpPair);
+
+    char*** returnResult = NULL;
+    *returnSize = 0;
+    *returnColumnSizes = NULL;
+
+    for (int i = 0; i < strsSize; i++) }
+        if (i == 0 || strcmp(pair[i-1].sorted, pair[i].sorted != 0) {
+            // A new group
+            int lastGroupIndex = *returnSize;
+            returnResult = realloc(returnResult, sizeof(char**)*(*returnSize + 1));
+            returnResult[lastGroupIndex] = malloc(sizeof(char*)*1);
+            returnResult[lastGroupIndex][0] = pairs[i].orig;
+
+            (*returnSize)++;
+            *returnColumnSizes = realloc(*returnColumnSizes, sizeof(int)*(*returnSize));
+            (*returnColumnSizes)[lastGroupIndex] = 1;
+        }
+        else {
+            // The same group, just append
+            int lastGroupIndex = *returnSize - 1;
+            int lastGroupSize = (*returnColumnSizes)[lastGroupIndex];
+            returnResult[lastGroupIndex] = realloc(returnResult[lastGroupIndex], sizeof(char*)*(lastGroupSize+1));
+            returnResult[lastGroupIndex][lastGroupSize] = pairs[i].orig;
+            (*returnColumnSizes)[lastGroupIndex] = lastGroupIndex + 1;
+        }
+    }
+    return returnResult;
 }
