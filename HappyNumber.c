@@ -17,3 +17,13 @@ int nextNumber(int num)
     return next;
 }
 
+bool isHappy(int n)
+{
+    int later = n;
+    int former = n;
+    do {
+        later = nextNumber(later);
+        former = nextNumber(nextNumber(former));
+    } while (former != later);
+    return former == 1;
+}
